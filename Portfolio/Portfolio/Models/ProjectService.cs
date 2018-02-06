@@ -12,6 +12,7 @@ namespace Portfolio.Models
         private readonly ProjectDbContext _context;
         public ProjectService(ProjectDbContext context)
         {
+            context.EnsureSeedData();
             _context = context;
         }
         public async Task DeleteAsync(int id)

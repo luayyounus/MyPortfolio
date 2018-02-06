@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,10 +26,22 @@ namespace Portfolio
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            services.AddDbContext<ProjectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IProjectService, ProjectService>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
+            services.AddMvc().
+                AddRazorPagesOptions(options => 
+                {
+                    options.Conventions.AuthorizeFolder("/Admin");
+                    options.Conventions.AuthorizeFolder("/Account");
+                    options.Conventions.AllowAnonymousToPage("/Account/Login");
+                });
+
+
+            services.AddDbContext<ProjectDbContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
+
+            services.AddScoped<IProjectService, ProjectService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +54,7 @@ namespace Portfolio
 
             app.UseMvc();
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.Run(async (context) =>
             {

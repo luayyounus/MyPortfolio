@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Portfolio.Models;
 
 namespace Portfolio.Pages.Admin
 {
+    [Authorize]
     public class AddEditProjectModel : PageModel
     {
         [FromRoute]
         public int? Id { get; set; }
+
+        [BindProperty]
+        public IFormFile Image { get; set; }
 
         [BindProperty]
         public Project Project { get; set; }
@@ -36,6 +42,7 @@ namespace Portfolio.Pages.Admin
             project.Type = Project.Type;
             project.DateCompleted = Project.DateCompleted;
             project.Technologies = Project.Technologies;
+            project.SetImage(Image);
 
             await ProjectService.SaveAsync(project);
 

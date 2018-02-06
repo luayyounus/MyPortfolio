@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio", "Portfolio\Portfolio.csproj", "{8DE90CC3-CB85-4F15-8CF7-389B78FE65B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestPortfolio", "XUnitTestPortfolio\XUnitTestPortfolio.csproj", "{DA705C23-6BA5-40FD-82B1-97F3327E7A43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestPortfolio", "XUnitTestPortfolio\XUnitTestPortfolio.csproj", "{DA705C23-6BA5-40FD-82B1-97F3327E7A43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -2,12 +2,12 @@
 @model Portfolio.Pages.Admin.AddEditProjectModel
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "AddEditProject";
+    ViewData["Title"] = "Add Edit Project";
 }
 
 <h2>Add / Delete Project</h2>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Project.Name" class="col-md-2 control-label"></label>
         <input asp-for="Project.Name" class="form-control" />
@@ -33,6 +33,11 @@
         <textarea rows="5" asp-for="Project.Technologies" class="form-control"></textarea>
     </div>
 
+    <div>
+        <label asp-for="Image" class="col-md-2 control-label"></label>
+        <input type="file" asp-for="Image" />
+    </div>
+    
     <button type="submit" class="btn btn-primary">Save</button>
     <button type="submit" asp-page-handler="Delete" class="btn btn-primary">Delete</button>
 </form>

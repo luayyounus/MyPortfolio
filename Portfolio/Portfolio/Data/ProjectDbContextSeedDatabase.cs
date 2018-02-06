@@ -27,7 +27,7 @@ namespace Portfolio.Data
 
         public static Project[] GenerateProjects()
         {
-            return new []
+            return new[]
             {
                 new Project
                 {

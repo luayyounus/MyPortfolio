@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static System.Environment;
@@ -31,5 +33,26 @@ namespace Portfolio.Models
 
         public string Technologies { get; set; }
         public IEnumerable<string> TechnologiesList => (Technologies ?? string.Empty).Split(NewLine);
+
+        public string GetInlineImage()
+        {
+            if (Image == null || ImageContentType == null) return null;
+
+            string base64Image = Convert.ToBase64String(Image);
+
+            return $"data:{ImageContentType};base64,{base64Image}";
+        }
+
+        public void SetImage(IFormFile file)
+        {
+            if (file == null) return;
+            ImageContentType = file.ContentType;
+            
+            using(MemoryStream stream = new MemoryStream())
+            {
+                file.CopyTo(stream);
+                Image = stream.ToArray();
+            }
+        }
     }
 }

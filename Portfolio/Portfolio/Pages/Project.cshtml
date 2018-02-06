@@ -10,7 +10,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <img class="img-fluid img-thumbnail" src="@project.ImageUrl" />
+            @if (project.Image != null)
+            {
+                <img class="img-fluid img-thumbnail" src="@project.GetInlineImage()" />
+            }
+            else
+            {
+                <img class="img-fluid img-thumbnail" src="@project.ImageUrl" />
+            }
         </div>
         <div class="col-md-8">
             <div class="col-md-12">
@@ -22,5 +29,9 @@
         </div>
     </div>
 
-    <a asp-page="/Admin/AddEditProject" class="btn btn-primary" asp-route-id="@project.Id">Edit</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-page="/Admin/AddEditProject" class="btn btn-primary" asp-route-id="@project.Id">Edit</a>
+    }
+
 </div>

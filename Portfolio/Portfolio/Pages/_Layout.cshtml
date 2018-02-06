@@ -8,8 +8,10 @@
     <link href="~/Style.css" rel="stylesheet" />
 </head>
 <body>
+    @Html.Partial("Navbar")
     <div class="container">
-        @RenderBody()   
+        @RenderBody()
     </div>
+    @*@RenderSection("scripts", required: false)*@
 </body>
 </html>

@@ -1,7 +1,8 @@
 ﻿@page
 
-@{ 
+@{
     Layout = "_Layout";
+    //ViewData["Title"] = "Luay Younus";
     var projects = await ProjectService.GetAllAsync();
 }
 
@@ -36,7 +37,14 @@
         @foreach (var project in projects)
         {
             <div class="col-md-9">
-                <img class="img-thumbnail" height="150" src="@project.ImageUrl" /> @*projects Screenshot*@
+                @if (project.Image != null)
+                {
+                    <img class="img-thumbnail" height="150" src="@project.GetInlineImage()" />
+                }
+                else
+                {
+                    <img class="img-thumbnail" height="150" src="@project.ImageUrl" />
+                }
             </div>
 
             <div class="col-md-3">
